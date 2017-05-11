@@ -269,6 +269,8 @@ public class BndtoolsBuilder extends IncrementalProjectBuilder {
                         // We can now decorate based on the build we just did.
                         PackageDecorator.updateDecoration(myProject, model);
 
+                        ComponentMarker.updateComponentMarkers(myProject, model);
+
                         if (model.isCnf()) {
                             model.getWorkspace().refresh(); // this is for bnd plugins built in cnf
                         }
@@ -311,6 +313,8 @@ public class BndtoolsBuilder extends IncrementalProjectBuilder {
     protected void clean(IProgressMonitor monitor) throws CoreException {
         try {
             IProject myProject = getProject();
+
+            ComponentMarker.clearComponentMarkers(myProject);
             final Project model;
             try {
                 model = Central.getProject(myProject);
