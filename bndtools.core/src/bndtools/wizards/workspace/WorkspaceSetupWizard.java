@@ -3,7 +3,6 @@ package bndtools.wizards.workspace;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.nio.file.Files;
@@ -117,8 +116,8 @@ public class WorkspaceSetupWizard extends Wizard implements INewWizard {
                     case File :
                         File parentDir = file.getParentFile();
                         Files.createDirectories(parentDir.toPath());
-                        try (InputStream in = resource.getContent(); FileOutputStream out = new FileOutputStream(file)) {
-                            IO.copy(in, out);
+                        try (InputStream in = resource.getContent()) {
+                            IO.copy(in, file);
                         }
                         break;
                     default :
